@@ -37,9 +37,9 @@
 - name: PostgreSQL | Install PostgreSQL | apt
   apt:
     name:
-      - "postgresql-{{postgresql_version}}"
-      - "postgresql-client-{{postgresql_version}}"
-      - "postgresql-contrib-{{postgresql_version}}"
+      - "{{ postgresql_package_prefix }}postgresql-{{postgresql_version}}"
+      - "{{ postgresql_package_prefix }}postgresql-client-{{postgresql_version}}"
+      - "{{ postgresql_package_prefix }}postgresql-contrib-{{postgresql_version}}"
     state: present
     update_cache: yes
     default_release: "{{postgresql_default_release | default(ansible_distribution_release + '-pgdg')}}"
