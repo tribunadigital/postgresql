@@ -46,6 +46,17 @@
     cache_valid_time: "{{apt_cache_valid_time | default (3600)}}"
   environment: "{{postgresql_env}}"
 
+- name: PostgreSQL | Install pg_stat_monitor | apt
+  apt:
+    name:
+      - "{{ postgresql_package_prefix }}pg-stat-monitor{{ postgresql_version }}"
+    state: present
+    update_cache: yes
+    default_release: "{{postgresql_default_release | default(ansible_distribution_release + '-pgdg')}}"
+    cache_valid_time: "{{apt_cache_valid_time | default (3600)}}"
+  when: "'pg_stat_monitor' in postgresql_shared_preload_libraries"
+  environment: "{{postgresql_env}}"
+
 - name: PostgreSQL | PGTune | apt
   apt:
     name: pgtune
