@@ -83,6 +83,7 @@
     {{ postgresql_version }} {{ postgresql_cluster_name }}
     --
     {% if postgresql_data_checksums and postgresql_version is version_compare('9.3', '>=') %}--data-checksums{% endif %}
+    {% if not postgresql_data_checksums and postgresql_version is version_compare('18', '>=') %}--no-data-checksums{% endif %}
     {% if postgresql_pwfile != "" %}--pwfile={{ postgresql_pwfile }} {% endif %}
     {% if postgresql_wal_directory != "" and postgresql_version is version_compare('10', '<') %}--xlogdir={{ postgresql_wal_directory }} {% endif %}
     {% if postgresql_wal_directory != "" and postgresql_version is version_compare('10', '>=') %}--waldir={{ postgresql_wal_directory }} {% endif %}
@@ -113,6 +114,7 @@
     {{ postgresql_bin_directory }}/initdb -D {{ postgresql_data_directory }}
     --locale={{ postgresql_locale }} --encoding={{ postgresql_encoding }}
     {% if postgresql_data_checksums and postgresql_version is version_compare('9.3', '>=') %}--data-checksums{% endif %}
+    {% if not postgresql_data_checksums and postgresql_version is version_compare('18', '>=') %}--no-data-checksums{% endif %}
     {% if postgresql_pwfile != "" %}--pwfile={{ postgresql_pwfile }} {% endif %}
     {% if postgresql_wal_directory != "" and postgresql_version is version_compare('10', '<') %}--xlogdir={{ postgresql_wal_directory }} {% endif %}
     {% if postgresql_wal_directory != "" and postgresql_version is version_compare('10', '>=') %}--waldir={{ postgresql_wal_directory }} {% endif %}
